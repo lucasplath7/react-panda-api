@@ -20,7 +20,7 @@ app.set('views', path.join(__dirname, 'public/views'));
 app.use(require('body-parser').json());
 app.use(
   session({
-    secret: process.env.APP_SECRET, // TODO: remove to env config file
+    secret: process.env.APP_SECRET,
     resave: true,
     saveUninitialized: false
   })

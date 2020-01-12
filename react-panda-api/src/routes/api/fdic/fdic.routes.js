@@ -11,7 +11,7 @@ router.get(
   httpUtil.asyncMiddleware(async (req, res) =>{
     const { fromPeriodDate, toPeriodDate } = req.query;
     const result = await FdicController.getFedIds(fromPeriodDate, toPeriodDate);
-    console.log('length: ', result.length)
+
     httpUtil.sendSuccess(res, 'result: ')(result);
   })
 );
