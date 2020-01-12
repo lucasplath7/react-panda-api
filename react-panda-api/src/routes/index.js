@@ -13,6 +13,7 @@ function setCORS(req, res, next) {
   } else {
     next();
   }
+  next();
 }
 
 router.get('/test', (req,res) => res.json('Test Response Output Success'));
