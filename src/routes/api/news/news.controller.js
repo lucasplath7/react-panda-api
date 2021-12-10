@@ -75,7 +75,7 @@ async function getFeeds() {
         count++;
       }
     }
-  
+
     return consolidatedFeeds;
   } catch (err) {
     console.log(Object.keys(err.response));

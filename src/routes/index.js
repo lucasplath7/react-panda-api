@@ -10,9 +10,10 @@ function setCORS(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-User');
   if(req.method === 'OPTIONS') {
     res.status(200).end();
-  } else {
-    next();
   }
+  // else {
+  //   next();
+  // }
   next();
 }
 
