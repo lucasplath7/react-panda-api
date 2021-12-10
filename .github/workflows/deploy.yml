@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 16.13
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.13'
+    - name: Install npm and run unittest
+      run: |
+        npm install
+        npm test
+      env:
+        CI: true
+    - name: Publish to Github Packages Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: lucasplath7/react-panda-api/react-panda-api-deploy-image
+        registry: docker.pkg.github.com
+        username: ${{ secrets.MY_GITHUB_USERNAME }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        dockerfile: Dockerfile-prod
+        tags: latest
+    - name: Deploy package to digitalocean
+      uses: appleboy/ssh-action@master
+      env:
+          GITHUB_USERNAME: ${{ secrets.MY_GITHUB_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        host: ${{ secrets.DO_HOST }}
+        username: ${{ secrets.DO_USERNAME }}
+        password: ${{ secrets.DO_PASSWORD }}
+        port: ${{ secrets.DO_PORT }}
+        envs: GITHUB_USERNAME, GITHUB_TOKEN
+        script: |
+          docker stop $(docker ps -a -q)
+          docker login docker.pkg.github.com -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+          docker pull docker.pkg.github.com/lucasplath7/react-panda/react-panda-api-deploy-image:latest
+          docker run -dit -p 80:80 docker.pkg.github.com/lucasplath7/react-panda/react-panda-api-deploy-image:latest
