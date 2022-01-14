@@ -17,7 +17,7 @@ const passwordText = 'rOIuiheJIoL5OpXTjv4o'
 const url = 'https://cdr.ffiec.gov/Public/PWS/WebServices/RetrievalService.asmx?WSDL';
 const createHeader = (soapAction) => {
     return {
-      'Content-Type': 'text/xml',
+      'Content-Type': 'text/xml;charset=utf-8',
       'SOAPAction': soapAction,
       'Host': 'cdr.ffiec.gov',
     }
@@ -46,7 +46,8 @@ async function retrieveReportingPeriods() {
   const xml = createXml(username, passwordText, methodBody);
   const header = createHeader(RETRIEVE_PERIODS);
   console.log('URL', url)
-  const { response } = await soapRequest({ url: url, headers: header, xml: xml, timeout: 3000});
+  const { response } = await soapRequest({ url: url, headers: header, xml: xml, timeout: 10000});
+  console.log('BODY: ', response)
   const dates = response.body.substring(
       response.body.indexOf('<RetrieveReportingPeriodsResult>') + 32,
       response.body.indexOf('</RetrieveReportingPeriodsResult>')
@@ -59,14 +60,10 @@ async function retrieveReportingPeriods() {
 }
 
 async function retrieveFilers(fromPeriodDate, toPeriodDate) {
-  const methodBody = `<RetrieveFilersSinceDate xmlns="http://cdr.ffiec.gov/public/services">
-                        <dataSeries>Call</dataSeries>
-                        <reportingPeriodEndDate>${toPeriodDate}</reportingPeriodEndDate>
-                        <lastUpdateDateTime>${fromPeriodDate}</lastUpdateDateTime>
-                      </RetrieveFilersSinceDate>`;
+  const methodBody = `<RetrieveFilersSinceDate xmlns="http://cdr.ffiec.gov/public/services"><dataSeries>Call</dataSeries><reportingPeriodEndDate>${toPeriodDate}</reportingPeriodEndDate><lastUpdateDateTime>${fromPeriodDate}</lastUpdateDateTime></RetrieveFilersSinceDate>`;
   const xml = createXml(username, passwordText, methodBody);
   const header = createHeader(RETRIEVE_FILERS)
-  const { response } = await soapRequest(url, header, xml, 30000);
+  const { response } = await soapRequest({ url: url, headers: header, xml: xml, timeout: 30000 });
 
   const filers = response.body.substring(
       response.body.indexOf('<RetrieveFilersSinceDateResult>') + 31,
@@ -81,17 +78,11 @@ async function retrieveFilers(fromPeriodDate, toPeriodDate) {
 
 async function retrieveCallReport(fedId, periodEndDate){
     console.log('end date: ', periodEndDate)
-  const methodBody = `<RetrieveFacsimile xmlns="http://cdr.ffiec.gov/public/services">
-                        <dataSeries>Call</dataSeries>
-                        <reportingPeriodEndDate>${periodEndDate}</reportingPeriodEndDate>
-                        <fiIDType>ID_RSSD</fiIDType>
-                        <fiID>${fedId}</fiID>
-                        <facsimileFormat>XBRL</facsimileFormat>
-                      </RetrieveFacsimile>`;
+  const methodBody = `<RetrieveFacsimile xmlns="http://cdr.ffiec.gov/public/services"><dataSeries>Call</dataSeries><reportingPeriodEndDate>${periodEndDate}</reportingPeriodEndDate><fiIDType>ID_RSSD</fiIDType><fiID>${fedId}</fiID><facsimileFormat>XBRL</facsimileFormat></RetrieveFacsimile>`;
   const xml = createXml(username, passwordText, methodBody);
   const header = createHeader(RETRIEVE_REPORT)
   
-  const { response } = await soapRequest(url, header, xml, 30000);
+  const { response } = await soapRequest({ url: url, headers: header, xml: xml, timeout: 30000 });
 
 
   const base64 = response.body.substring(
