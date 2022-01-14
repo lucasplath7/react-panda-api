@@ -10,13 +10,15 @@ const RETRIEVE_PERIODS = 'http://cdr.ffiec.gov/public/services/RetrieveReporting
 const RETRIEVE_FILERS = 'http://cdr.ffiec.gov/public/services/RetrieveFilersSinceDate';
 const RETRIEVE_REPORT = 'http://cdr.ffiec.gov/public/services/RetrieveFacsimile';
  
-const username = process.env.FDIC_USERNAME;
-const passwordText = process.env.FDIC_PASSWORD;
+// const username = process.env.FDIC_USERNAME;
+// const passwordText = process.env.FDIC_PASSWORD;
+const username = 'lucasplath7'
+const passwordText = 'rOIuiheJIoL5OpXTjv4o'
 const url = 'https://cdr.ffiec.gov/Public/PWS/WebServices/RetrievalService.asmx?WSDL';
 const createHeader = (soapAction) => {
     return {
       'Content-Type': 'text/xml',
-      'soapAction': soapAction,
+      'SOAPAction': soapAction,
       'Host': 'cdr.ffiec.gov',
     }
 };
@@ -43,7 +45,8 @@ async function retrieveReportingPeriods() {
                       </RetrieveReportingPeriods>`;
   const xml = createXml(username, passwordText, methodBody);
   const header = createHeader(RETRIEVE_PERIODS);
-  const { response } = await soapRequest(url, header, xml, 30000);
+  console.log('URL', url)
+  const { response } = await soapRequest({ url: url, headers: header, xml: xml, timeout: 3000});
   const dates = response.body.substring(
       response.body.indexOf('<RetrieveReportingPeriodsResult>') + 32,
       response.body.indexOf('</RetrieveReportingPeriodsResult>')
