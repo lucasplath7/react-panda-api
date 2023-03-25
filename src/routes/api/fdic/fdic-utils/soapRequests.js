@@ -13,7 +13,7 @@ const RETRIEVE_REPORT = 'http://cdr.ffiec.gov/public/services/RetrieveFacsimile'
 // const username = process.env.FDIC_USERNAME;
 // const passwordText = process.env.FDIC_PASSWORD;
 const username = 'lucasplath7'
-const passwordText = 'rOIuiheJIoL5OpXTjv4o'
+const passwordText = 'Kw4qRxAxeCp2erFmJXM7'
 const url = 'https://cdr.ffiec.gov/Public/PWS/WebServices/RetrievalService.asmx?WSDL';
 const createHeader = (soapAction) => {
     return {
@@ -45,9 +45,7 @@ async function retrieveReportingPeriods() {
                       </RetrieveReportingPeriods>`;
   const xml = createXml(username, passwordText, methodBody);
   const header = createHeader(RETRIEVE_PERIODS);
-  console.log('URL', url)
   const { response } = await soapRequest({ url: url, headers: header, xml: xml, timeout: 10000});
-  console.log('BODY: ', response)
   const dates = response.body.substring(
       response.body.indexOf('<RetrieveReportingPeriodsResult>') + 32,
       response.body.indexOf('</RetrieveReportingPeriodsResult>')
@@ -77,7 +75,6 @@ async function retrieveFilers(fromPeriodDate, toPeriodDate) {
 }
 
 async function retrieveCallReport(fedId, periodEndDate){
-    console.log('end date: ', periodEndDate)
   const methodBody = `<RetrieveFacsimile xmlns="http://cdr.ffiec.gov/public/services"><dataSeries>Call</dataSeries><reportingPeriodEndDate>${periodEndDate}</reportingPeriodEndDate><fiIDType>ID_RSSD</fiIDType><fiID>${fedId}</fiID><facsimileFormat>XBRL</facsimileFormat></RetrieveFacsimile>`;
   const xml = createXml(username, passwordText, methodBody);
   const header = createHeader(RETRIEVE_REPORT)
