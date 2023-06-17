@@ -10,7 +10,7 @@ router.get(
   httpUtil.asyncMiddleware(async (req, res) => {
       const result = await NewsController.getFeeds();
       
-      httpUtil.sendSuccess(res, 'result: ')(result);
+      httpUtil.sendSuccess(res, 'result: ')(result.flat());
   })
 );
 

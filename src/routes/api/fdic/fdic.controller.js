@@ -1,16 +1,19 @@
-import bcrypt from 'bcrypt';
-import soapUtil from './fdic-utils/soapRequests';
+import FdicCallReportApi from 'fdic-call-report-api';
 
-async function getFedIds(fromPeriodDate, toPeriodDate) {
-  return soapUtil.retrieveFilers(fromPeriodDate, toPeriodDate);
-}
+const FDIC_USER = 'lucasplath7'
+const FDIC_KEY = 'Kw4qRxAxeCp2erFmJXM7'
+
 
 async function getReportingPeriodEndDates() {
-  return soapUtil.retrieveReportingPeriods();
+  return FdicCallReportApi.retrieveReportingPeriods(FDIC_USER, FDIC_KEY);
+}
+
+async function getFedIds(fromPeriodDate, toPeriodDate) {
+  return FdicCallReportApi.retrieveFilers(FDIC_USER, FDIC_KEY, fromPeriodDate, toPeriodDate);
 }
 
 async function getCallReport(fedId, periodEndDate){
-  return soapUtil.retrieveCallReport(fedId, periodEndDate);
+  return FdicCallReportApi.retrieveCallReport(FDIC_USER, FDIC_KEY, fedId, periodEndDate);
 }
 
 module.exports = {

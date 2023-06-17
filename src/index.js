@@ -10,6 +10,11 @@ require('dotenv').config();
 
 const app = express();
 
+app.use(function setCommonHeaders(req, res, next) {
+  res.set("Access-Control-Allow-Private-Network", "true");
+  next();
+});
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
