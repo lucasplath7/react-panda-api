@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nodejs:
-    image: docker.pkg.github.com/lucasplath7/react-panda-ui/react-panda-api-deploy-image:latest
+    image: docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
     container_name: react-panda-api-deploy-image
     restart: unless-stopped
     networks:
