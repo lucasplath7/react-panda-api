@@ -42,7 +42,16 @@ jobs:
         script: |
           docker stop $(docker ps -a -q)
           docker login docker.pkg.github.com -u $GITHUB_USERNAME -p $GITHUB_TOKEN
-          docker pull docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
-          docker run -dit -p 5000:5000 docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
-          docker pull docker.pkg.github.com/lucasplath7/react-panda-ui/react-panda-ui-deploy-image:latest
-          docker run -dit -p 80:80 docker.pkg.github.com/lucasplath7/react-panda-ui/react-panda-ui-deploy-image:latest
+          # docker pull docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
+          # docker run -dit -p 5000:5000 docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
+          cd /root/git/react-panda-api
+          git pull origin master
+          docker-compose pull nodejs
+          docker-compose -f /root/git/react-panda-api/docker-compose.yml up -d --force-recreate --build
+          docker image prune -f
+                
+          cd /root/git/react-panda-ui
+          git pull origin master
+          docker-compose pull reactjs
+          docker-compose -f /root/git/react-panda-ui/docker-compose.yml up -d --force-recreate --build
+          docker image prune -f
