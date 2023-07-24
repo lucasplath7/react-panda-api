@@ -13,7 +13,7 @@ services:
     container_name: nodewebserver
     restart: unless-stopped
     ports:
-      - "5000"
+      - "5000:5000"
       # - "443:443"
     volumes:
       - web-root:/var/www/html
