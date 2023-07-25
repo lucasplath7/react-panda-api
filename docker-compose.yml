@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
     ports:
       - "5000:5000"
-      - "443:443"
+      # - "443:443"
     volumes:
       - web-root:/usr/share/nginx/html
       - ./web-nginx-conf:/etc/nginx/conf.d
