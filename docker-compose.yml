@@ -6,7 +6,7 @@ services:
     container_name: react-panda-api-deploy-image
     restart: unless-stopped
     networks:
-      - app-network
+      - node-app-network
 
   nodewebserver:
     image: nginx:mainline-alpine
@@ -26,7 +26,7 @@ services:
     depends_on:
       - nodejs
     networks:
-      - app-network
+      - node-app-network
 
   nodecertbot:
     image: certbot/certbot
@@ -57,5 +57,5 @@ volumes:
       o: bind
 
 networks:
-  app-network:
+  node-app-network:
     driver: bridge  
