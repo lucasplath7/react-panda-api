@@ -27,9 +27,9 @@ services:
     networks:
       - app-network
 
-  certbot:
+  nodecertbot:
     image: certbot/certbot
-    container_name: certbot
+    container_name: nodecertbot
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
