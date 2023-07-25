@@ -2,7 +2,6 @@ import express from 'express';
 
 import FdicController from './fdic.controller';
 import httpUtil from '../../../utils/http-utils';
-import { runInNewContext } from 'vm';
 
 const router = express.Router();
 
