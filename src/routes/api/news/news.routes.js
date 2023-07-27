@@ -14,4 +14,13 @@ router.get(
   })
 );
 
+router.get(
+  '/getTest',
+  httpUtil.asyncMiddleware(async (req, res) => {
+      const result = 'test success';
+      
+      httpUtil.sendSuccess(res, 'result: ')(result);
+  })
+);
+
 module.exports = router;
