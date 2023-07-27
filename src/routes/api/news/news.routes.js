@@ -17,7 +17,7 @@ router.get(
 router.get(
   '/getTest',
   httpUtil.asyncMiddleware(async (req, res) => {
-      const result = await NewsController.getFeeds();
+      const result = await NewsController.getTest();
       
       httpUtil.sendSuccess(res, 'result: ')(result);
   })
