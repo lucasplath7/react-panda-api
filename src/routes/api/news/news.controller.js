@@ -67,7 +67,8 @@ const MAX_ARTICLES_PER_SOURCE = 3;
 
 async function getTest() {
   const rssData = await axios.get('https://www.npr.org/rss/rss.php?id=1001');
-  return rssData;
+  const parsed = JSON.parse(parser.toJson(rssData.data));
+  return parsed;
 }
 
 async function getFeeds() {
