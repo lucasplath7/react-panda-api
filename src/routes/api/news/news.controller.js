@@ -65,6 +65,11 @@ const NEWS_SOURCES = [
 ];
 const MAX_ARTICLES_PER_SOURCE = 3;
 
+async function getTest() {
+  const rssData = await axios.get('https://www.npr.org/rss/rss.php?id=1001');
+  return rssData;
+}
+
 async function getFeeds() {
     return Promise.all(NEWS_SOURCES.map(async (source) => { 
       const rssData = await axios.get(source.rss)
@@ -120,4 +125,5 @@ async function getFeeds() {
 
 module.exports = {
   getFeeds,
+  getTest
 }
