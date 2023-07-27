@@ -37,8 +37,8 @@ services:
       - web-root:/usr/share/nginx/html
     depends_on:
       - nodewebserver
-    # command: certonly --webroot --webroot-path=/usr/share/nginx/html --email lucas.plath@gmail.com --agree-tos --no-eff-email --force-renewal -v -d www.react-panda.com -d react-panda.com
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html --email lucas.plath@gmail.com --agree-tos --no-eff-email -v -n -d www.react-panda.com -d react-panda.com
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html --email lucas.plath@gmail.com --agree-tos --no-eff-email --force-renewal -v -d www.react-panda.com -d react-panda.com
+    # command: certonly --webroot --webroot-path=/usr/share/nginx/html --email lucas.plath@gmail.com --agree-tos --no-eff-email -v -n -d www.react-panda.com -d react-panda.com
 
 volumes:
   certbot-etc:
