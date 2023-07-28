@@ -66,9 +66,17 @@ const NEWS_SOURCES = [
 const MAX_ARTICLES_PER_SOURCE = 3;
 
 async function getTest() {
-  const rssData = await axios.get('https://www.npr.org/rss/rss.php?id=1001');
-  const parsed = JSON.parse(parser.toJson(rssData.data));
-  return parsed;
+  const results = NEWS_SOURCES.map(async (source) => {
+    try {
+      await axios.get(source.rss);
+      return {name: source.name, success: true}
+    } catch (e) {
+      return {name: source.name, success: false, error: e}
+    }
+  })
+  // const rssData = await axios.get('https://www.npr.org/rss/rss.php?id=1001');
+  // const parsed = JSON.parse(parser.toJson(rssData.data));
+  return results;
 }
 
 async function getFeeds() {
