@@ -3,13 +3,13 @@ import parser from 'xml2json';
 import textExtractors from './textExtractors';
 
 const NEWS_SOURCES = [
-  {
-    name: 'ALTERNET',
-    leans: 'FAR-LEFT',
-    rss: 'https://www.alternet.org/feeds/feed.rss',
-    customParsing: true,
-    extractText: textExtractors.alternetArticleExtract,
-  },
+  // {
+  //   name: 'ALTERNET',
+  //   leans: 'FAR-LEFT',
+  //   rss: 'https://www.alternet.org/feeds/feed.rss',
+  //   customParsing: true,
+  //   extractText: textExtractors.alternetArticleExtract,
+  // },
   {
     name: 'DAILY-KOS',
     leans: 'FAR-LEFT',
@@ -35,13 +35,13 @@ const NEWS_SOURCES = [
     customParsing: true,
     extractText: textExtractors.foxArticleExtract,
   },
-  {
-    name: 'NEWS-MAX',
-    leans: 'FAR-RIGHT',
-    rss: 'https://www.newsmax.com/rss/Politics/1/',
-    customParsing: true,
-    extractText: textExtractors.newsMaxArticleExtract,
-  },
+  // {
+  //   name: 'NEWS-MAX',
+  //   leans: 'FAR-RIGHT',
+  //   rss: 'https://www.newsmax.com/rss/Politics/1/',
+  //   customParsing: true,
+  //   extractText: textExtractors.newsMaxArticleExtract,
+  // },
   {
     name: 'NPR',
     leans: 'LEGIT',
