@@ -71,6 +71,7 @@ async function getTest() {
       await axios.get(source.rss);
       return {name: source.name, success: true}
     } catch (e) {
+      console.log('ERROR: ', e)
       return {name: source.name, success: false, error: e}
     }
   }))
