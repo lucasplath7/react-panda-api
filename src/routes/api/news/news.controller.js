@@ -69,8 +69,10 @@ async function getTest() {
   const results = await Promise.all(NEWS_SOURCES.map(async (source) => {
     try {
       await axios.get(source.rss);
+      console.log('SUCCESS: ', source.name)
       return {name: source.name, success: true}
     } catch (e) {
+      console.log('ERROR: ', source.name)
       console.log('ERROR: ', e)
       return {name: source.name, success: false, error: e}
     }
