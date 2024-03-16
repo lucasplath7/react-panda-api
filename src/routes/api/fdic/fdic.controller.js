@@ -1,11 +1,17 @@
 import FdicCallReportApi from 'fdic-call-report-api';
 
 const FDIC_USER = 'lucasplath7'
-const FDIC_KEY = 'z6B39AyyNusvILw9SyRY'
+const FDIC_KEY = 'Ibn55syli2PCex0mEddf'
 
 
 async function getReportingPeriodEndDates() {
-  return FdicCallReportApi.retrieveReportingPeriods(FDIC_USER, FDIC_KEY);
+  try {
+    const resp = await FdicCallReportApi.retrieveReportingPeriods(FDIC_USER, FDIC_KEY); 
+    return resp;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
 }
 
 async function getFedIds(fromPeriodDate, toPeriodDate) {
