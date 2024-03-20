@@ -30,15 +30,6 @@ app.use(
     saveUninitialized: false
   })
 );
-// This is requiring session to be set on all routes.  How do I prevent so that
-// users can access public areas without being logged in
-// app.use((req, res, next) => {
-//   if (req.session.user) {
-//     next();
-//   } else {
-//     res.status(401).send('Authrization failed! Please login');
-//   }
-// });
 
 setRoutes(app);
 

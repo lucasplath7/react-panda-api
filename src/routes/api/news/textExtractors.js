@@ -29,14 +29,8 @@ function defaultArticleExtract(linkResponse) {
 }
 
 function economistArticleExtract(linkResponse) {
-  const parsedData = htmlParse(linkResponse.data)
-  // console.log('PARSED DATA: ', parsedData.childNodes[1].childNodes[1].childNodes[1].childNodes[0])
-  
+  const parsedData = htmlParse(linkResponse.data);  
   const parsedTextObject = JSON.parse(parsedData.childNodes[1].childNodes[1].childNodes[1].childNodes[0]._rawText);
-  // console.log('parsed obj ******************* : ', parsedTextObject.props.pageProps.content.text[0].children)
-  // console.log('tag 1 : ', parsedTextObject.props.pageProps.content.text[0].children[0].children)
-  // console.log('tag 2 : ', parsedTextObject.props.pageProps.content.text[0].children[1].children)
-  // console.log('parsed obj 2 ******************* : ', parsedTextObject.props.pageProps.content.text[1].children)
   const articleText = parsedTextObject.props.pageProps.content.text.reduce((articleText, textObject) => {
     textObject.children.forEach((textChild) => {
       if (textChild.type === 'tag') {
@@ -50,16 +44,7 @@ function economistArticleExtract(linkResponse) {
 
     return articleText;
   }, '');
-  // parsedTextObject.props.pageProps.content.text[0].children.forEach(child => {
-  //   if (child.type === 'tag') {
-  //     child.children.forEach(ch => {
-  //       articleText += ch.data;
-  //     })
-  //   } else {
-  //     articleText += child.data;
-  //   }
-  // })
-  // console.log('\n\n\narticle text: ', articleText)
+
   return articleText;
 }
 
@@ -97,7 +82,6 @@ function reutersArticleExtract(linkResponse) {
   let text = '';
   function findChildText(childObj) {
     if (childObj._rawText && childObj._rawText.replace(/\s+/g, '') ) {
-      // console.log('child objt: ', childObj.parentNode.rawAttrs)
       text += childObj._rawText;
     }
     if (childObj.childNodes && childObj.childNodes.length > 0) {

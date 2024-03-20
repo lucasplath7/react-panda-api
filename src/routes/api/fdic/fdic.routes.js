@@ -19,6 +19,7 @@ router.get(
   '/getReportingPeriodEndDates',
   httpUtil.asyncMiddleware(async (req, res) =>{
     const result = await FdicController.getReportingPeriodEndDates();
+
     httpUtil.sendSuccess(res, 'result: ')(result);
   })
 );
@@ -28,6 +29,7 @@ router.get(
   httpUtil.asyncMiddleware(async (req, res) =>{
     const { fedId, periodEndDate } = req.query;
     const result = await FdicController.getCallReport(fedId, periodEndDate);
+    
     httpUtil.sendSuccess(res, 'result: ')(result);
   })
 );

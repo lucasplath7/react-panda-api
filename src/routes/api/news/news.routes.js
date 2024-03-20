@@ -15,17 +15,6 @@ router.get(
       console.log('error: ', err);
       throw new Error(err);
     }
-      
-      // httpUtil.sendSuccess(res, 'result: ')(result.flat());
-  })
-);
-
-router.get(
-  '/getTest',
-  httpUtil.asyncMiddleware(async (req, res) => {
-      const result = await NewsController.getTest();
-      
-      httpUtil.sendSuccess(res, 'result: ')(result);
   })
 );
 
