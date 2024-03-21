@@ -4,6 +4,9 @@ services:
   nodejs:
     env_file: 
       - ./.env
+    environment:
+      - FDIC_USER=${FDIC_USER}
+      - FDIC_KEY=${FDIC_KEY}
     image: docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
     container_name: react-panda-api-deploy-image
     restart: unless-stopped
@@ -13,6 +16,9 @@ services:
   nodewebserver:
     env_file: 
       - ./.env
+    environment:
+      - FDIC_USER=${FDIC_USER}
+      - FDIC_KEY=${FDIC_KEY}
     image: nginx:mainline-alpine
     container_name: nodewebserver
     restart: unless-stopped
