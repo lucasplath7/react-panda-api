@@ -48,9 +48,10 @@ jobs:
           # docker run -dit -p 5000:5000 docker.pkg.github.com/lucasplath7/react-panda-api/react-panda-api-deploy-image:latest
           cd /root/git/react-panda-api
           git pull origin master
+          rm .env
           touch .env
-          echo "FDIC_USER=$FDIC_USER\n" >> .env
-          echo "FDIC_KEY=$FDIC_KEY\n" >> .env
+          echo "FDIC_USER=$FDIC_USER" >> .env
+          echo "FDIC_KEY=$FDIC_KEY" >> .env
           docker-compose pull nodejs
           docker-compose -f /root/git/react-panda-api/docker-compose.yml --env-file ./.env up -d --force-recreate --build
           docker image prune -f
