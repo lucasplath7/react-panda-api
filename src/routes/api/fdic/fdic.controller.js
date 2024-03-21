@@ -1,5 +1,5 @@
 import FdicCallReportApi from 'fdic-call-report-api';
-require('dotenv');
+require('dotenv').config();
 
 async function getReportingPeriodEndDates() {
   try {
