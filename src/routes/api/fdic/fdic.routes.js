@@ -6,6 +6,13 @@ import httpUtil from '../../../utils/http-utils';
 const router = express.Router();
 
 router.get(
+  '/env',
+  httpUtil.asyncMiddleware(async (req, res) =>{
+    httpUtil.sendSuccess(res, 'result: ')(process.env);
+  })
+);
+
+router.get(
   '/getFedIds',
   httpUtil.asyncMiddleware(async (req, res) =>{
     const { fromPeriodDate, toPeriodDate } = req.query;
