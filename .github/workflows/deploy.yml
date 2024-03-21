@@ -52,6 +52,8 @@ jobs:
           touch .env
           echo "FDIC_USER=$FDIC_USER" >> .env
           echo "FDIC_KEY=$FDIC_KEY" >> .env
+          export "FDIC_USER=$FDIC_USER"
+          export "FDIC_KEY=$FDIC_KEY"
           docker-compose pull nodejs
           docker-compose -f /root/git/react-panda-api/docker-compose.yml --env-file ./.env up -d --force-recreate --build
           docker image prune -f
