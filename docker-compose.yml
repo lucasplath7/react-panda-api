@@ -10,6 +10,7 @@ services:
       - node-network
 
   nodewebserver:
+    env_file: .env
     image: nginx:mainline-alpine
     container_name: nodewebserver
     restart: unless-stopped
